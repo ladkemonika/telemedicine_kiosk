@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "76616365181",
+    "project_id": "telemedicinekiosk-ed507",
+    "storage_bucket": "telemedicinekiosk-ed507.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76616365181:android:79edd42be4a9df2836ad14",
+        "android_client_info": {
+          "package_name": "com.example.telemedicine_kiosk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwRPVqNnIso4CoSQ2riLRoUcAZL0XZV6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
