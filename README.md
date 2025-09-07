@@ -1,16 +1,34 @@
-# telemedicine_kiosk
+#Telemedicine Kiosk
 
-A new Flutter project.
+A Flutter-based telemedicine kiosk application that allows patients to book doctor appointments, while doctors can manage their online/offline status and view appointments in real-time using Firebase as the backend.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+Patient can book an appointment (with name + ID).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Doctor can toggle online/offline status.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Appointments stored in Firebase Realtime Database.
+
+Doctor status synced in real time.
+
+Cross-platform (Android, iOS, Web).
+
+## Setup Instructions
+Prerequisites
+
+Flutter SDK (3.x recommended)
+
+Dart SDK
+
+Firebase account
+
+## How to Use
+1. Launch the app on kiosk device.
+2. Patient selects **Book Appointment** → enters name & ID → appointment saved.
+3. Doctor sets **Online/Offline** status.
+4. Status updates instantly in Firebase & reflected in UI.
+
+**********************************************
