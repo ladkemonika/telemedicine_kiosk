@@ -2,14 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
-  final String patientName;
-  final String doctorId;
-
-  const BookAppointmentScreen({
-    super.key,
-    required this.patientName,
-    required this.doctorId,
-  });
+  const BookAppointmentScreen({super.key, required String patientName, required String doctorId});
 
   @override
   State<BookAppointmentScreen> createState() => _BookAppointmentScreenState();
@@ -19,31 +12,39 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   late DatabaseReference database;
   bool _isLoading = false;
 
+  final TextEditingController _patientController = TextEditingController();
+  final TextEditingController _doctorController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     database = FirebaseDatabase.instance.ref();
   }
 
-  /// Book appointment and update doctor status to online
   Future<void> bookAppointment() async {
+    if (_patientController.text.isEmpty || _doctorController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter patient name and doctor ID")),
+      );
+      return;
+    }
+
     setState(() => _isLoading = true);
 
     try {
-      // Save appointment
       await database.child('appointments').push().set({
-        'patient': widget.patientName,
-        'doctorId': widget.doctorId,
+        'patient': _patientController.text.trim(),
+        'doctorId': _doctorController.text.trim(),
         'time': DateTime.now().toIso8601String(),
         'status': 'booked',
       });
 
-      // Optionally mark doctor online after booking
-      await updateDoctorStatus(true);
-
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Appointment booked successfully!")),
       );
+
+      _patientController.clear();
+      _doctorController.clear();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Failed to book appointment: $e")),
@@ -53,34 +54,37 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
     }
   }
 
-  /// Update doctor's online status
-  Future<void> updateDoctorStatus(bool isOnline) async {
-    await database.child('doctor_status/online').set(isOnline);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Book Appointment")),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: _isLoading ? null : bookAppointment,
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          ),
-          child: _isLoading
-              ? const SizedBox(
-            width: 20,
-            height: 20,
-            child: CircularProgressIndicator(
-              color: Colors.white,
-              strokeWidth: 2,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _patientController,
+              decoration: const InputDecoration(
+                labelText: "Patient Name",
+                border: OutlineInputBorder(),
+              ),
             ),
-          )
-              : const Text(
-            "Book Appointment",
-            style: TextStyle(fontSize: 18),
-          ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _doctorController,
+              decoration: const InputDecoration(
+                labelText: "Doctor ID",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: _isLoading ? null : bookAppointment,
+              child: _isLoading
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text("Book Appointment"),
+            ),
+          ],
         ),
       ),
     );

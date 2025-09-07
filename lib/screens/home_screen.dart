@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'book_appointment_screen.dart';
 import 'doctor_status_screen.dart';
-// ✅ KioskChannel import
 import '../services/kiosk_channel.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -31,16 +30,12 @@ class HomeScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                // TODO: Replace with actual patient and doctor info
-                String patientName = "John Doe";
-                String doctorId = "doctor_001";
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BookAppointmentScreen(
-                      patientName: patientName,
-                      doctorId: doctorId,
+                    builder: (context) => const BookAppointmentScreen(
+                      patientName: "John Doe", // 👈 Replace with dynamic input later
+                      doctorId: "Dr123",       // 👈 Replace with doctor selection later
                     ),
                   ),
                 );
