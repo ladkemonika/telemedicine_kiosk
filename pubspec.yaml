@@ -27,11 +27,11 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^2.25.0
-  firebase_database: ^10.2.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -43,6 +43,20 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # Firebase Core (required for all Firebase services)
+  firebase_core: ^3.6.0
+
+  # Firebase Auth (login/signup)
+  firebase_auth: ^5.3.1
+
+  # Firebase Realtime Database (doctor availability, appointments)
+  firebase_database: ^11.1.1
+
+  # Firebase Analytics (optional, for tracking)
+  firebase_analytics: ^11.3.0
+
+  # Cloud Firestore (if later you want to use it instead of Realtime DB)
+  cloud_firestore: ^5.4.2
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
