@@ -36,3 +36,36 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//Example functions for Firebase Realtime Database usage
+
+final DatabaseReference database = FirebaseDatabase.instance.ref();
+
+class FirebaseDatabase {
+  static get instance => null;
+}
+
+class DatabaseReference {
+  child(String s) {}
+}
+
+/// Save appointment to /appointments/{pushId}
+Future<void> saveAppointment({
+  required String patient,
+  required String doctorId,
+  String? note,
+}) async {
+  final newAppointment = {
+    "patient": patient,
+    "time": DateTime.now().toIso8601String(),
+    "doctorId": doctorId,
+    "note": note ?? "",
+    "status": "booked",
+  };
+
+  await database.child("appointments").push().set(newAppointment);
+}
+
+/// Update doctor status in /doctor_status/online
+Future<void> updateDoctorStatus(bool isOnline) async {
+ await database.child("doctor_status/online").set(isOnline);
+}
